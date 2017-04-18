@@ -52,7 +52,6 @@ import types
 
 from sqlalchemy import create_engine, MetaData, Table
 from sqlalchemy.orm import mapper, sessionmaker
-#from urllib.parse import quote_plus
 from sqlalchemy.sql import sqltypes
 from sqlalchemy.dialects.mssql import base as sqltypes_base
 
@@ -114,10 +113,13 @@ def main(params):
             jdl_type = TYPES.get(type(val.type), '<not found>')
             required_text = ' required' if val.nullable else ''
             length = ''
+            if type(val.type) == sqltypes.NUMERIC and getattr(val.type, 'scale', 0) == 0:
+                jdl_type = 'Integer'
             if hasattr(val.type, 'length'):
-                if type(val.type) == sqltypes.NUMERIC:
-                    jdl_type = 'Integer'
-                length = ' maxlength({})'.format(val.type.length)
+                if jdl_type == 'Blob':
+                    length = ' maxbytes({})'.format(val.type.length)
+                else:
+                    length = ' maxlength({})'.format(val.type.length)
             comma = ',' if key != keys[-1:][0] else ''
             if val.foreign_keys:
                 foreign_keys.append(dict(table_name=table_name, table_norm_name=table_norm_name, column=val.copy(),
@@ -136,7 +138,6 @@ def main(params):
                                                     relation['table_norm_name'], relation['foreign_table'].lower(),
                                                     comma))
             print('} ')
-
 
 
 if __name__ == '__main__':
