@@ -111,7 +111,7 @@ def main(params):
         for key in keys:
             val = tab.columns[key]
             jdl_type = TYPES.get(type(val.type), '<not found>')
-            required_text = ' required' if val.nullable else ''
+            required_text = ' required' if not val.nullable else ''
             length = ''
             if type(val.type) == sqltypes.NUMERIC and getattr(val.type, 'scale', 0) == 0:
                 jdl_type = 'Integer'
