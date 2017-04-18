@@ -25,5 +25,9 @@ setup(
                 # }
     # },
     # zipfile=None,
-    scripts=['mssql2jdl.py']
+    scripts=['mssql2jdl.py'],
+    install_requires=[
+        'sqlalchemy',
+        'pyodbc'
+    ]
 )
