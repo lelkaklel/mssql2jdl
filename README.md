@@ -1,6 +1,5 @@
 # mssql2jdl
 
-----------------------
 Creates JHipster JDL for SQL Server database
 
 ## 1. Install
@@ -16,7 +15,7 @@ or setup manually:
 
 ## 3. Run
 ```
-> mssql2jdl [-p table_name_prefix] sqlserver_dsn_name sql_server_user sql_server_password > jhipster-jdl.jh
+> mssql2jdl.py [-p table_name_prefix] sqlserver_dsn_name sql_server_user sql_server_password > jhipster-jdl.jh
 ```
 
 ![example](example.png)
