@@ -135,7 +135,8 @@ def main(params):
             foreign_table_norm_name = normalize_name(relation['foreign_table'])
             comma = ''  # '',' if relation != foreign_keys[-1:][0] else ''
             print('    {}{} to {}{}{{{}}}{}'.format(params.tableprefix, foreign_table_norm_name, params.tableprefix,
-                                                    relation['table_norm_name'], relation['foreign_table'].lower(),
+                                                    relation['table_norm_name'],
+                                                    relation['foreign_table'].lower().replace('_', ''),
                                                     comma))
             print('} ')
 
